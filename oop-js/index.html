@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script type="text/javascript" src="panel.js"></script>
+<link rel="stylesheet" type="text/css" href="panel.css">
+<script type="text/javascript">
+	// var p = new Panel(400,400);
+	$(function(){
+		
+		var p = new Panel(400,400, $('#parent-div'));
+		var p2 = new Panel(500,400);
+
+		p.add('<h1>Adding some Text</h1>');
+
+		p.open(function(){
+			var text = document.createElement('p');
+			text.innerHTML = "This is sampel text and I'll be repeating it so many times.This is sampel text and I'll be repeating it so many times.This is sampel text and I'll be repeating it so many times.This is sampel text and I'll be repeating it so many times.This is sampel text and I'll be repeating it so many times.This is sampel text and I'll be repeating it so many times.This is sampel text and I'll be repeating it so many times.This is sampel text and I'll be repeating it so many times.";
+			p2.add(text);
+			p2.open();
+		});
+	});
+
+</script>
+</head>
+<body>
+
+<div id="parent-div" style="width: 500px; height:500px;position:relative; magin:150px; background:#DDD;"></div>
+
+</body>
+	
+</html>
