@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" src="../jquery-1.10.2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		//to avoid the repeat the name of the main object when
+		//we wanted to call on public method from another or access public variables
+		var myRevealingModule = function() {
+			var privateVar = "Ben Cherry";
+			var publicVar = "Hey there!";
+
+			function privateFunction(){
+				console.log("Name:" + privateVar);
+			}
+
+			function publicSetName(strName){
+				privateVar = strName;
+			}
+
+			function publicGetName(){
+				privateFunction();
+			}
+
+			//Reveal public pointers to 
+			//private functions and properteis
+			return {
+				setName: publicSetName,
+				greeting: publicVar,
+				getName: publicGetName
+			};
+
+		}();
+
+		myRevealingModule.setName("Paul Kinlan");
+		
+	});
+</script>
+</head>
+<body>
+The Revealing Module Pattern
+</body>
+	
+</html>

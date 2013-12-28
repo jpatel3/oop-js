@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" src="../jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        function parseNumber(input) {
+            var m = (/[\d]+(\.[\d]+)?/).exec(input);
+            if (m) {
+               // Check if there is a decimal place
+               if (m[1]) { 
+                    //console.log(input +' : float' ); 
+                    return parseFloat(input);
+                }else { 
+                    //console.log(input + ' : Integer');
+                    return parseInt(input);
+                }          
+            }
+            //console.log(input - ': string');
+            return input;
+        }
+
+        function getLowerBound(val, interval){
+            var bound = interval * Math.floor(val/interval)
+            if (bound > val){
+                return val;
+            }else {
+                return bound;
+            }
+        }
+
+        function getUpperBound(val, interval){
+            return interval * Math.round(1+val/interval)
+        }
+
+        function log10(val) {
+          return Math.log(val) / Math.LN10;
+        }
+
+        function getRange(range, tickCount){
+            var unroundedTickSize = range/(tickCount-1);
+            var x = Math.ceil(log10(unroundedTickSize)-1);
+            var pow10x = Math.pow(10, x);
+            var roundedTickRange = Math.ceil(unroundedTickSize / pow10x) * pow10x;
+            return roundedTickRange;
+        }
+
+        $('#calculate').click(function(){
+            var min = parseNumber($('#min').val());
+            var max = parseNumber($('#max').val());
+            var ticks = parseNumber($('#ticks').val());
+ 
+            if(typeof(ticks)==='undefined') ticks = 10;
+           
+            var range = max-min;
+            
+            var tick_range = getRange(range, ticks)
+            var lowerbound = getLowerBound(min, tick_range);
+            var upperbound = getUpperBound(max, tick_range);
+
+            var tick_values = [];
+            var start = lowerbound;
+            for (var i = 0; i<=ticks; i++){
+                tick_values.push(start);
+                start = start + tick_range;
+            }
+
+            $('#result-min').html(lowerbound);
+            $('#result-max').html(upperbound);
+            $('#result').html(tick_values.join('  '));
+        });     
+
+    });
+</script>
+</head>
+<body>
+<input type="textbox" id="min"></input>
+<input type="textbox" id="max"></input>
+<input type="textbox" id="ticks"></input>
+<button id="calculate">Calculate</button>
+<div style="padding:20px;">&nbsp;</div>
+
+<div id="result-min" style="background:#ccc"></div>
+<div style="padding:10px;">&nbsp;</div>
+<div id="result-max" style="background:#ccc"></div>
+<div style="padding:10px;">&nbsp;</div>
+<div id="result" style="background:#ccc"></div>
+
+</body>
+    
+</html>

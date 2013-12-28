@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" src="../jquery-1.10.2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		//old way
+		var store = window.store || {};
+		
+		YAHOO.store.basket = function(){
+			//private variables
+			var myPrivateVar = "I can be accessed only withing YAHOO.store.basket.";
+
+			//private method
+			var myPrivateMethod = function(){
+				YAHOO.log("I can be accessed only within YAHOO.store.basket")
+			}
+
+			return {
+				myPublicProperty: "I'm a public property",
+				myPublicMethod: function(){
+					YAHOO.log("I'm a public method.");
+
+					//Within basket. I can access "private" vars and methods:
+					YAHOO.log(myPrivateVar);
+					YAHOO.LOG(myPrivateMethod);
+
+					//The native scope of myPublicMethod is store so we can
+					//access public member using "this"
+					YAHOO.log(this.myPublicProperty);
+				}
+			};
+		}();
+
+	});
+</script>
+</head>
+<body>
+
+</body>
+	
+</html>

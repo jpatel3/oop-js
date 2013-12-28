@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" src="../jquery-1.10.2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//Module pattern was developed by number of people including Richart Cornford in 2003.
+		//It was later popularized by Douglas Crockford in his lectures. Later it played important
+		//role for yahoo's YUI library.
+		var recordModule  = (function(){
+			var record = []; //private
+			return {
+				//exposed to public
+				addItem: function(values){
+					record.push(values);
+				},
+				getItemCount: function(values){
+					return record.length;
+				},
+				getTotal: function(){
+					var q = this.getItemCount(),p=0;
+					while(q--){
+						p+= record[q].price;
+					}
+					return p;
+				}
+			}
+		}());
+
+		recordModule.addItem({
+			item:'soap',
+			price: 2.75
+		});
+		recordModule.addItem({
+			item:'butter',
+			price: 3.40
+		});
+
+		console.log(recordModule.getItemCount());
+		console.log(recordModule.getTotal());
+
+		console.log(recordModule.record);
+		//console.log(record);
+
+	});
+</script>
+</head>
+<body>
+
+</body>
+	
+</html>

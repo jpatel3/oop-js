@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" src="../jquery-1.10.2.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dojo/dojo.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		//old way
+		var store = window.store || {};
+		store.record = store.record || {};
+
+		//using dojo.setObject
+		dojo.setObject("store.record.object", (function(){
+			var record = [];
+			function privateMethod(){
+				console.log(record);
+			}
+			return {
+				publicMethod: function(){
+					privateMethod();
+				}
+			}
+		})) 
+
+	});
+</script>
+</head>
+<body>
+
+</body>
+	
+</html>

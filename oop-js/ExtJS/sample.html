@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" charset="utf-8" src="http://cdn.sencha.io/ext-4.2.0-gpl/ext-all.js"></script>
+<script type="text/javascript">
+	//Create namespace
+	Ext.namespace('myNameSpace');
+
+	//create application
+	myNameSpace.app = function() {
+
+		//do Not access DOM from here; elements don't exist yet
+		//private variables
+
+		var btn1,
+			privVar1 = 11;
+
+		//private functions
+		var btn1Handler = function (button, event){
+			console.log("privVar1=" + privVar1);
+			console.log("this.btn1Text=" + this.btn1Text);
+		};
+
+		//public space
+		return {
+			//public properties, e.g. string to translate
+			btn1Text: "Button 1",
+
+			//public methods
+			init: function(){
+				if(Ext.Ext2){
+					btn1 = new Ext.Button({
+						renderTo: 'btn1-ct',
+						text: this.btn1Text,
+						handler: btn1Handler
+					});
+				}else{
+					btn1 = new Ext.Button("btn1-ct", {
+						text: this.btn1Text,
+						handler: btn1Handler
+					});
+				}
+			}
+		};
+	}();
+</script>
+</head>
+<body>
+ExtJS
+
+<div class="btn1-ct"></div>
+</body>
+    
+</html>
