@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" src="../jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#confP').change(function(){
+        if ($('#confP').is(':checked') == true){
+            $('#price').val('').prop('disabled', true);
+            console.log('checked');
+        } else {
+            $('#price').prop('disabled', false);
+            console.log('unchecked');
+        }
+    });
+  });
+</script>
+</head>
+       <body>
+            <input type="checkbox" id="confP" name="confP" value="productType"?>Configurable Product? Price <input type="text" id="price" name="price"/>
+            </div>
+</html>
+
+
+
+
