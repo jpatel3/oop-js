@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Experimenting With Signals And Mediators</title>
+	 <!--
+	 Source - http://www.bennadel.com/blog/2282-Global-Events-vs-Entity-Bound-Events-In-JavaScript-Application-Architecture.htm
+	Author: Ben Nadel
+	 -->
+	<!-- Stylesheets. -->
+	<link rel="stylesheet" type="text/css" href="./styles.css"></link>
+</head>
+<body>
+ 
+	<h1>
+		Experimenting With Signals And Mediators
+	</h1>
+ 
+	<p class="filters">
+		<a class="off">Funny</a>
+		<a class="off">Sassy</a>
+		<a class="off">Smart</a>
+		<a class="off">Witty</a>
+	</p>
+ 
+	<ul class="friends">
+		<li class="funny">
+			Sarah
+		</li>
+		<li class="sassy funny">
+			Kit
+		</li>
+		<li class="smart">
+			Libby
+		</li>
+		<li class="smart witty sassy">
+			Tricia
+		</li>
+		<li class="sassy smart">
+			Joanna
+		</li>
+	</ul>
+ 
+ 
+	<!-- Load the RequireJS + jQuery library. -->
+	<script type="text/javascript" src="./jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="./require.js"></script>
+	<script type="text/javascript">
+ 
+		// Configure the page mediator once the controllers have
+		// been loaded into the dependency management system.
+		require(
+			[
+				"filter-controller",
+				"friends-controller"
+			],
+			function( FilterController, FriendsController ){
+ 
+ 
+				// Create our filter controller.
+				var filter = new FilterController( $( "p.filters" ) );
+ 
+				// Create our friends controller.
+				var friends = new FriendsController( $( "ul.friends" ) );
+ 
+ 
+				// I check to see if all the given traits can be
+				// found in the given collection.
+				var hasAllTraits = function( filters, traits ){
+ 
+					// Now, try to find one that doesn't matche.
+					for (var i = 0 ; i < filters.length ; i++){
+ 
+						// Check to see if the given filter could not
+						// be found in the traits.
+						if (!traits[ filters[ i ].toLowerCase() ]){
+ 
+							// At least one could not be found.
+							return( false );
+ 
+						}
+ 
+					}
+ 
+					// If we made it this far, all traits were found.
+					return( true );
+ 
+				};
+ 
+ 
+				// Define a method that will update the list of
+				// friends based on the current state of the filter.
+				var updateFriends = function( event, trait ){
+ 
+					// Get the active filters.
+					var filters = filter.getActiveFilters();
+ 
+					// Update the friends display.
+					friends.displayUsingFilter(
+						function( name, traits ){
+ 
+							// Only show friends that have all the
+							// traits dicated by the active filters.
+							return( hasAllTraits( filters, traits ) );
+ 
+						}
+					);
+ 
+				};
+ 
+ 
+				// Bind to selection chagnes on the filters.
+				filter.events.filterSelected.bind( updateFriends );
+				filter.events.filterDeselected.bind( updateFriends );
+ 
+ 
+			}
+		);
+ 
+ 
+	</script>
+ 
+</body>
+</html>
