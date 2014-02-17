@@ -1,0 +1,21 @@
+ <!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" src="../jquery-1.10.2.js"></script>
+<script type="text/javascript" src="mediator.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var mediator = new Mediator();
+
+		mediator.subscribe("wat", function(){ console.log(arguments); });
+		mediator.publish("wat", 7, "hi", { one: 1 });
+	
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>

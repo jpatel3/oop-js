@@ -1,0 +1,23 @@
+<html>
+<head>
+<script src="countdown.js"></script>
+
+<script type="text/javascript" src="../jquery-1.10.2.js"></script>  
+</head>
+
+<h1 id="countdown-holder"></h1>  
+
+<script>  
+
+var someDate = new Date();
+var numberOfDaysToAdd = 7;
+someDate.setDate(someDate.getDate() + numberOfDaysToAdd); 
+
+  var clock = document.getElementById("countdown-holder")  
+    , targetDate = someDate;  
+
+  clock.innerHTML = countdown(targetDate).toString();  
+  setInterval(function(){  
+    clock.innerHTML = countdown(targetDate).toString();  
+  }, 1000);  
+</script>  

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Javascript</title>
+<script type="text/javascript" src="../jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+var date_sort_asc = function (date1, date2) {
+        if (date1 > date2) return 1;
+        if (date1 < date2) return -1;
+        console.log('asc');
+        return 0;
+};
+
+var date_sort_desc = function (date1, date2) {
+        if (date1 > date2) return -1;
+        if (date1 < date2) return 1;
+        console.log('desc');
+        return 0;
+};
+
+
+$(document).ready(function(){   
+    var dates = [];
+    $('#sort').on('click', function(){
+    dates = []
+    $('#information tr td:nth-child(2)').map(function(){
+        var date = new Date($(this).text().toString()); //Convert the string Date to Date format
+        dates.push(date.toDateString().substr(4));          
+    });
+    console.log(dates.sort(date_sort_desc));
+  });
+
+});
+</script>
+</head>
+       <body>
+            <button id="sort">Sort Me</button>
+            <table style="border: 1px solid black">
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Name</th>
+                </tr>
+                <tbody id="information">
+                <tr>
+                    <td>1</td>
+                    <td>22 January 2013</td>
+                    <td>John Kelly</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2 September 2012</td>
+                    <td>Selina Kyle</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>17 April 2014</td>
+                    <td>John Kelly</td>
+                </tr>
+                </tbody>
+            </table>
+        </body>
+</html>
+
+
+
+
